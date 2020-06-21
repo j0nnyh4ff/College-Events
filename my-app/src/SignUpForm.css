@@ -1,0 +1,8 @@
+.container {
+    margin-left: 40%;
+    margin-top: 10%;
+    width: 30vmin;
+    height: 20vmax;
+    background-color: orangered;
+    align-items: center;
+}
