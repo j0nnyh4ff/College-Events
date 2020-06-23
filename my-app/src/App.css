@@ -1,6 +1,7 @@
-* {
+html {
   margin: 0px;
   padding: 0px;
+  background-color:     #281A3C;
 }
 .App {
   text-align: center;

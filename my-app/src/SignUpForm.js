@@ -1,42 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SignUpForm.css';
 const { remoteConfig } = require("firebase");
 
-export class SignUpForm extends React.Component {
-    constructor(props) {
-        super(props);
+function SignUpForm() {    
 
-        //Methods
-        this.handleChange = this.handleChange.bind(this);
-        //this.handleSubmit = this.handleSubmit.bind(this);
+    const [state, setState] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        username: "",
+        password: ""
+    });
 
-        this.fields = [
-            {field: 'First Name', value: 'First Name'},
-            {field: 'Last Name', value: 'Last Name'},
-            {field: 'Email', value: 'Email'},
-            {field: 'Username', value: 'Username'},
-            {field: 'Password', value: 'Password'}];
-        this.state = this.fields.map(f => (
-            <input type="text" value={f.value} onChange={this.handleChange} />
-        ));    
-    }
 
-    handleChange(event) {
-        this.setState.field({value: event.target.value});
+    function handleChange(event) {
+        setState({...state, 
+            [event.target.name]: event.target.value});
         event.preventDefault();
     }
 
+    function handleSubmit() {
+        return;
+    }
 
-    render() {
-        return (            
-            <div className="container">
+
+    return (            
+        <div className="container">
+            <h1>&emsp;Create an Account</h1>
+            <div id="wrapper">
                 <form>
-                    {this.state}
-                    <input type="submit" value="Click me" />
+                    <label>First Name: </label>
+                    <input type="text" name="firstName" value={state.firstName} onChange={handleChange} />
+                    <br />
+                    <label>Last Name: </label>
+                    <input type="text" name="lastName" value={state.lastName} onChange={handleChange} />
+                    <br />
+                    <label>Email: </label>
+                    <input type="text" name="email" value={state.email} onChange={handleChange} />
+                    <br />
+                    <label>Username: </label>
+                    <input type="text" name="username" value={state.username} onChange={handleChange} />
+                    <br />
+                    <label>Password: </label>
+                    <input type="password" name="password" value={state.password} onChange={handleChange} />
+                    <br />
+
+                    <input id="submit-button" type="submit" value="Create Account" />
                 </form>
             </div>
-        );
-    }
+        </div>
+    );    
 };
 
 export default SignUpForm;

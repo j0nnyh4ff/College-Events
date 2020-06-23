@@ -1,8 +1,40 @@
 .container {
-    margin-left: 40%;
-    margin-top: 10%;
-    width: 30vmin;
-    height: 20vmax;
+    position: relative;
+    margin: 40px;
+    width: 90vw;
+    height: 90vh;
     background-color: orangered;
+    border-radius: 15px;
     align-items: center;
+    vertical-align: middle;
 }
+
+form {    
+    align-items: center;
+    align-content: center;
+    width: 100%;
+}
+
+label {
+    padding-left: 10px;
+}
+
+input {
+    padding: 10px;
+    margin: 20px;
+    margin-bottom: 5px;
+    border: none;
+    border-bottom: 2px solid white;
+    background-color: orangered;
+}
+
+input:focus {
+    border-bottom: 2px solid black;
+}
+
+#submit-button {
+    border: none;
+    border-radius: 15px;
+    background-color: white;
+}
+
