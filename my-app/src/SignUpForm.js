@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './SignUpForm.css';
-import Database from './Database'
+import {DatabaseContext} from './DatabaseContext';
 const { remoteConfig } = require("firebase");
 
 function SignUpForm() { 
