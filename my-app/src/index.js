@@ -14,7 +14,7 @@ import SignUpForm from './SignUpForm';
 
 
 ReactDOM.render(
-  <SignUpForm />,
+  <App />,
   document.getElementById('root')
 );
 

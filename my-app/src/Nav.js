@@ -1,20 +1,51 @@
 import React from 'react';
-import './App.css';
+import Bell from './images/bell.png';
+import SearchBar from './SearchBar';
+import './Nav.css';
 
 class Nav extends React.Component {
     constructor(props) {
         super(props);
-        this.className = props.className;
-        //Array of objects with an abbreviation and link url
-        this.navLinks = props.navLinks.map(nav => (
-                        <a href={nav.url} className='link'>{nav.text}</a>));
+        this.loggedIn = props.loggedIn;
     }
+
     render() {
+        //If user is not logged in
+        if (!this.loggedIn) {
         return(
-            <div className={this.className}>
-                {this.navLinks}
+            <div id="container">
+                <style> {/*Importing Open Sans*/}
+                    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+                </style> 
+
+                <div id="logoDiv">
+                    <h1 id="logo">Schoolhouse</h1>
+                    <img id="bell" src={Bell} alt="Bell"/>
+                </div>
+
+                <span>
+                    <div id="searchContainer">
+                        <SearchBar id="searchBar"/> 
+                    </div>
+                </span>
+
+                <span id="buttons">
+                    <button id="login">Log in</button>
+                    <button id="signUp">Sign Up</button>
+                </span>
             </div>
         );
+    }   //User is logged in
+        else {
+            return(
+            <div>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Search</a>
+            </div>
+        );
+        }
+
     }
 }
 

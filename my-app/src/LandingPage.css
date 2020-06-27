@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Abril Fatface', serif;
+    src: url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+}
+
+@font-face {
+    font-family: 'Raleway', sans-serif;
+    src: url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+}
+
+#banner {
+    overflow: auto;
+    padding-left: 10%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #950952;
+}
+
+#truth {
+    margin: 0px;
+    padding: 10px 10px;
+    background-color: white;
+    font-weight: bold;
+    font-size: 24px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+#humaaans {
+    width: 600px;
+    height: 400px;
+    float: right;
+    margin-right: 8%;
+}
+
+h1 {
+    font-family: Abril Fatface;
+    color: #FFFBFC;
+    font-size: 48px;
+    letter-spacing: 5px;
+}
+
+h2, h3 {
+    color: white;
+    font-family: Raleway;
+}
+
+h3 {
+    font-weight: normal;
+}
+
+p {
+    font-family: Raleway;
+    color: #FFFBFC;
+    font-size: 18px;
+    line-height: 40px; 
+}

@@ -1,0 +1,118 @@
+
+
+@font-face {
+    font-family: 'Abril Fatface', serif;
+    src: url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+}
+
+@font-face {
+    font-family: 'Open Sans', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+}
+
+#container {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    background-color: #2B2462;
+    height: 64px;
+    width: 100%;
+}
+
+#logoDiv {
+    display: inline-flex;
+    height: 100%;
+    width: 160px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#logo {
+    margin: 0px;
+    font-size: 36px;
+    margin-top: 6px;
+    margin-left: 30%;
+}
+
+#bell {
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+#searchContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#buttons {
+    position: absolute;
+    height: 100%;
+    line-height: 64px;
+    right: 0%;
+}
+
+button {
+    width: 100px;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px;
+    margin-right: 40px;
+    
+    transition: font-size 0.5s ease;
+}
+
+#login {
+    background-color: #2B2462;
+    border-radius: 8px;
+    color: #FFFBFC;
+    border: 3px solid #FFFBFC;
+    transition: background-color 0.5s ease;
+    transition: border-color 0.5s ease;
+}
+
+#login:hover {
+    background-color: #2B2462;
+    border: 3px solid #FA9F42;
+    color: #FA9F42;
+    text-decoration: underline;
+    transition: background-color 0.5s ease;
+}
+
+#signUp {
+    background-color: #FFFBFC;
+    border-radius: 8px;
+    color: #2B4162;
+    border: 3px solid #FFFBFC;
+
+    transition: background-color 0.5s ease;
+}
+
+#signUp:hover {
+    border-color: #FA9F42;
+    background-color: #FA9F42;
+    color: #2B2462;
+    text-decoration: underline;
+    transition: background-color 0.5s ease;
+    transition: border-color 0.5s ease;
+}
+
+a {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Open Sans;
+    margin: 40px;
+    color: #FFFBFC;
+    text-decoration: none; 
+    border-bottom: 0px solid #FA9F42;
+    transition: border-width 0.1s linear;
+}
+
+a:hover {
+    border-width: 3px;
+    transition: border-width 0.1s linear;
+    color: #FA9F42;
+}

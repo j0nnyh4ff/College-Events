@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './SignUpForm.css';
-import {DatabaseContext} from './DatabaseContext';
+import {db} from './DatabaseContext';
 const { remoteConfig } = require("firebase");
 
 function SignUpForm() { 
-    const db = Database();   
+    let createdAccount = false;
 
     const [state, setState] = useState({
         firstName: "",
@@ -22,22 +22,28 @@ function SignUpForm() {
     }
 
     function handleSubmit(event) {
+        //Prevents default behavior (addition of this call allowed for user docs to be added)
+        event.preventDefault();
+
+        //As long as all forms are filled, allows user to be created
         if (state.firstName && state.lastName && state.email && state.username && state.password) {
-            let usersRef = db.connect.collectionGroup('users').where('email', '==', state.email);
-            usersRef.get().then(function(doc) {
-                if (doc.exists) {
-                    alert("Document Exists");
-                }
-                else {
-                    alert("User info is available");
-                }
+            db.collection('users').add(state)
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
             })
-            
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
         }
-        alert('Please fill out all fields.');
+        //Alert for blank fields
+        else {
+            alert('Please fill out all fields.');
+        }
     }
+
     return (            
         <div className="container">
+            {/*&emsp adds tab space before text*/}
             <h1>&emsp;Create an Account</h1>
             <div id="wrapper">
                 <form>
@@ -57,7 +63,7 @@ function SignUpForm() {
                     <input type="password" name="password" value={state.password} onChange={handleChange} />
                     <br />
 
-                    <input id="submit-button" type="submit" value="Create Account" onClick={handleSubmit}/>
+                    <input id="submit-button" type="button" value="Create Account" onClick={handleSubmit}/>
                 </form>
             </div>
         </div>
