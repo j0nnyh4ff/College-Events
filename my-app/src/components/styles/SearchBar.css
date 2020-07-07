@@ -3,8 +3,9 @@
     src: url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 }
 
-#container {
+#search-container {
     position: relative;
+    margin: 0px;
 }
 
 #searchBar {

@@ -10,28 +10,31 @@
 
 #banner {
     overflow: auto;
-    padding-left: 10%;
-    padding-top: 20px;
-    padding-bottom: 20px;
     background-color: #950952;
 }
 
-#truth {
-    margin: 0px;
-    padding: 10px 10px;
-    background-color: white;
-    font-weight: bold;
-    font-size: 24px;
+#backsplash {
+    height: 100%;
     width: 100%;
-    height: auto;
-    text-align: center;
+}
+
+#landing-overlay {
+    display: inline;
+    position: absolute;
+    padding: 36px;
+    right: 12%;
+    top: 20%;
+    background-color: #FFFBFC;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px grey;
+    
 }
 
 #humaaans {
     width: 600px;
     height: 400px;
     float: right;
-    margin-right: 8%;
+    
 }
 
 h1 {
@@ -52,7 +55,7 @@ h3 {
 
 p {
     font-family: Raleway;
-    color: #FFFBFC;
-    font-size: 18px;
+    color: black;
+    font-size: 22px;
     line-height: 40px; 
 }

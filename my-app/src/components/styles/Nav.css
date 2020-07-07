@@ -20,11 +20,13 @@
 }
 
 #logoDiv {
+    position: relative;
     display: inline-flex;
     height: 100%;
-    width: 160px;
+    width: auto;
     margin: 0px;
     padding: 0px;
+    align-items: center;
 }
 
 #logo {
@@ -35,7 +37,9 @@
 }
 
 #bell {
-    margin: 5px;
+    float: right;
+    margin: 0px;
+    padding: 0px;
     width: 50px;
     height: 50px;
 }
@@ -59,13 +63,15 @@ button {
     font-family: Open Sans;
     font-size: 16px;
     font-weight: bold;
-    padding: 8px;
+    padding: 0px;
     margin-right: 40px;
     
     transition: font-size 0.5s ease;
 }
 
 #login {
+    padding: 8px 12px;
+    margin: 16px;
     background-color: #2B2462;
     border-radius: 8px;
     color: #FFFBFC;
@@ -83,6 +89,8 @@ button {
 }
 
 #signUp {
+    padding: 8px 12px;
+    margin: 16px;
     background-color: #FFFBFC;
     border-radius: 8px;
     color: #2B4162;
@@ -107,12 +115,28 @@ a {
     margin: 40px;
     color: #FFFBFC;
     text-decoration: none; 
-    border-bottom: 0px solid #FA9F42;
-    transition: border-width 0.1s linear;
+    border: none;
+    transition: scale 0.1s linear;
 }
 
 a:hover {
-    border-width: 3px;
-    transition: border-width 0.1s linear;
-    color: #FA9F42;
+    scale: 110%;
 }
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }

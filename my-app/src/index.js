@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+//Components
+import App from './App';
+//Styles
+import './index.css';
 
 import * as firebase from 'firebase/app';
 import "firebase/firestore";
-
-import Nav from './Nav';
-import SignUpForm from './SignUpForm';
-
 
 
 

@@ -1,0 +1,59 @@
+.results-container {
+    
+    margin: 0px 0px;
+    padding: 10px;
+    background-color: #6D6875;
+}
+
+.results-wrapper {
+    position: relative;
+    padding: 16px;
+    margin: 5% 10%;
+    border-radius: 16px;
+    background-color: #FFFBFC;
+    box-shadow: 0px 3px 8px;
+}
+
+ul {
+    margin: 0px 0px;
+    padding: 0px;
+    position: relative;
+    list-style: none;
+}
+
+.list-div {    
+    border-radius: 2px;
+    padding: 16px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0px 3px 6px #6D6875;  
+    transition: box-shadow 0.1s ease;
+}
+
+.list-div:hover {
+    box-shadow: 0px 3px 10px #524e58;
+    transition: box-shadow 0.1s ease;
+}
+
+h2, h3 {
+    display: inline;
+    color: black;
+}
+
+image-div {
+    
+    margin: 0px;
+    width: 100%;
+    height: auto;
+}
+
+.registerButton {
+    float: right;
+    margin: 8px 16px;
+    background-color: #3d30a1;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0px 1px 2px black;
+}

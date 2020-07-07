@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './SignUpForm.css';
+import './styles/EventForm.css';
 import {db} from './DatabaseContext';
+import SideImage from './images/create-account-img.png';
 const { remoteConfig } = require("firebase");
 
 function SignUpForm() { 
@@ -10,6 +11,7 @@ function SignUpForm() {
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
+        university: "",
         email: "",
         username: "",
         password: ""
@@ -26,7 +28,7 @@ function SignUpForm() {
         event.preventDefault();
 
         //As long as all forms are filled, allows user to be created
-        if (state.firstName && state.lastName && state.email && state.username && state.password) {
+        if (state.firstName && state.lastName && state.university && state.email && state.username && state.password) {
             db.collection('users').add(state)
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
@@ -42,16 +44,23 @@ function SignUpForm() {
     }
 
     return (            
-        <div className="container">
+        <div className="form-container">
             {/*&emsp adds tab space before text*/}
-            <h1>&emsp;Create an Account</h1>
             <div id="wrapper">
+                <div style={{width: "100%", textAlign: "center"}}>
+                    <h1 className="formTitle">&emsp;Create an Account</h1>
+                </div>
+                
                 <form>
+                <span style={{margin: "40px"}}><img id="sideImage" src={SideImage} alt=""/></span>
                     <label>First Name: </label>
                     <input type="text" name="firstName" value={state.firstName} onChange={handleChange} />
                     <br />
                     <label>Last Name: </label>
                     <input type="text" name="lastName" value={state.lastName} onChange={handleChange} />
+                    <br />
+                    <label>University: </label>
+                    <input type="text" name="university" value={state.university} onChange={handleChange} />
                     <br />
                     <label>Email: </label>
                     <input type="text" name="email" value={state.email} onChange={handleChange} />
@@ -63,7 +72,7 @@ function SignUpForm() {
                     <input type="password" name="password" value={state.password} onChange={handleChange} />
                     <br />
 
-                    <input id="submit-button" type="button" value="Create Account" onClick={handleSubmit}/>
+                    <input id="submit-button" class="button" type="button" value="Create Account" onClick={handleSubmit}/>
                 </form>
             </div>
         </div>

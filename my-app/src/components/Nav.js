@@ -1,7 +1,8 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import Bell from './images/bell.png';
 import SearchBar from './SearchBar';
-import './Nav.css';
+import './styles/Nav.css';
 
 class Nav extends React.Component {
     constructor(props) {
@@ -19,8 +20,9 @@ class Nav extends React.Component {
                 </style> 
 
                 <div id="logoDiv">
-                    <h1 id="logo">Schoolhouse</h1>
-                    <img id="bell" src={Bell} alt="Bell"/>
+                    <Link to="/" id="Logo">
+                        <img id="bell" src={Bell} />
+                    </Link>
                 </div>
 
                 <span>
@@ -30,8 +32,14 @@ class Nav extends React.Component {
                 </span>
 
                 <span id="buttons">
-                    <button id="login">Log in</button>
-                    <button id="signUp">Sign Up</button>
+                    <Link to="/login" id="login">
+                        Log in
+                    </Link>                    
+                    
+                    <Link to="/sign-up" id="signUp">
+                        Sign Up
+                    </Link>
+                    
                 </span>
             </div>
         );
