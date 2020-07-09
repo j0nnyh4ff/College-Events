@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Bell from './images/bell.png';
-import SearchBar from './SearchBar';
-import './styles/Nav.css';
+import SearchBar from '../SearchBar/SearchBar';
+import {db} from '../DatabaseContext';
+import './Nav.css';
 
 class Nav extends React.Component {
     constructor(props) {

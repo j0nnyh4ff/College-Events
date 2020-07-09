@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {db} from './DatabaseContext';
+import {db} from '../DatabaseContext';
 import SearchIcon from './images/magnifying-glass.png';
 import SearchIconFocus from './images/magnifying-glass-focus.png';
-import './styles/SearchBar.css';
+import './SearchBar.css';
 
 function SearchBar() {
     const usersRef = db.collection('users');

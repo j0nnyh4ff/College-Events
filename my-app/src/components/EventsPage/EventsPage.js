@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {db} from './DatabaseContext';
-import './styles/EventsPage.css';
+import {db} from '../DatabaseContext';
+import './EventsPage.css';
 const { remoteConfig } = require("firebase");
 
  class EventsPage extends React.Component {

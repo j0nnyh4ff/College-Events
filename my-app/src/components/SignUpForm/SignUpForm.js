@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './styles/EventForm.css';
-import {db} from './DatabaseContext';
+import '../EventForm/EventForm.css';
+import {db} from '../DatabaseContext';
 import SideImage from './images/create-account-img.png';
 const { remoteConfig } = require("firebase");
 

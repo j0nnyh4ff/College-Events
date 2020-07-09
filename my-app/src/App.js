@@ -1,11 +1,11 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Nav from './components/Nav';
-import LandingPage from './components/LandingPage';
-import SignUpForm from './components/SignUpForm';
-import EventForm from './components/EventForm';
-import EventsPage from './components/EventsPage';
-import LoginForm from './components/LoginForm';
+import Nav from './components/Nav/Nav';
+import LandingPage from './components/LandingPage/LandingPage';
+import SignUpForm from './components/SignUpForm/SignUpForm';
+import EventForm from './components/EventForm/EventForm';
+import EventsPage from './components/EventsPage/EventsPage';
+import LoginForm from './components/LogInForm/LoginForm';
 import './App.css';
 
 function App() {

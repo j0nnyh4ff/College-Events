@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/LandingPage.css';
+import './LandingPage.css';
 import People from './images/clip-1.png';
 import backsplash from './images/pencils.jpg';
 
