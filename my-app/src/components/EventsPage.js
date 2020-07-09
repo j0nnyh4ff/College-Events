@@ -10,8 +10,6 @@ const { remoteConfig } = require("firebase");
         this.state = {
             events: []
         };
-
-        //this.onFocus = this.onFocus.bind(this);
     }
 
     registerForEvent(e) {
@@ -26,7 +24,10 @@ const { remoteConfig } = require("firebase");
                 querySnapshot.forEach((doc) => {
                     this.setState({events: [...this.state.events, doc.data()]});
                 })
-            });  
+            }).catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+              
         console.log(this.state.events);
 
         

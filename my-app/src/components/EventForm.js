@@ -33,7 +33,6 @@ function EventForm() {
     function handleSubmit(event) {
         const unchanged = "Tell others about your event...";
         //As long as all forms are filled, allows event to be created
-        //How to direct to subcollection?
         if (state.university && state.eventName && state.date && state.time && 
             state.length && state.description && state.description !== unchanged) 
         {           
