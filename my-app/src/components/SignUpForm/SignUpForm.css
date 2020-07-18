@@ -35,3 +35,9 @@ input:focus {
     background-color: white;
 }
 
+#leftSplitDiv {
+    width: 200px;
+    max-width: 600px;
+    overflow: hidden;
+}
+

@@ -1,41 +1,37 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import '../EventForm/EventForm.css';
-import {db} from '../DatabaseContext';
+import {db, firebaseApp} from '../DatabaseContext';
+import { Button, TextField, Box } from '@material-ui/core';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { string, object } from 'yup';
 import SideImage from './images/create-account-img.png';
 const { remoteConfig } = require("firebase");
 
-function SignUpForm() { 
-    let createdAccount = false;
+function SignUpForm() {
 
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
         university: "",
         email: "",
-        username: "",
         password: ""
     });
 
-    function handleChange(event) {
-        setState({...state, 
-            [event.target.name]: event.target.value});
-        event.preventDefault();
-    }
-
-    function handleSubmit(event) {
+    function createAccount(event) {
         //Prevents default behavior (addition of this call allowed for user docs to be added)
         event.preventDefault();
 
         //As long as all forms are filled, allows user to be created
         if (state.firstName && state.lastName && state.university && state.email && state.username && state.password) {
-            db.collection('users').add(state)
-            .then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
-            });
+            firebaseApp.auth().createUserWithEmailAndPassword(state.email, state.password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode + ": " + errorMessage);
+                // ...
+              });
+              console.log("Account Submitted");
         }
         //Alert for blank fields
         else {
@@ -51,29 +47,52 @@ function SignUpForm() {
                     <h1 className="formTitle">&emsp;Create an Account</h1>
                 </div>
                 
-                <form>
-                <span style={{margin: "40px"}}><img id="sideImage" src={SideImage} alt=""/></span>
-                    <label>First Name: </label>
-                    <input type="text" name="firstName" value={state.firstName} onChange={handleChange} />
-                    <br />
-                    <label>Last Name: </label>
-                    <input type="text" name="lastName" value={state.lastName} onChange={handleChange} />
-                    <br />
-                    <label>University: </label>
-                    <input type="text" name="university" value={state.university} onChange={handleChange} />
-                    <br />
-                    <label>Email: </label>
-                    <input type="text" name="email" value={state.email} onChange={handleChange} />
-                    <br />
-                    <label>Username: </label>
-                    <input type="text" name="username" value={state.username} onChange={handleChange} />
-                    <br />
-                    <label>Password: </label>
-                    <input type="password" name="password" value={state.password} onChange={handleChange} />
-                    <br />
+                <Formik initialValues={state}
+                    validationSchema={object({
+                        firstName: string().required("First name is a required field"),
+                        lastName: string().required("Last name is a required field"),
+                        university: string().required("College/University is a required field"),
+                        email: string().required("Email is a required field").email(),
+                        password: string().required("Password is a required field").min(8)                        
+                    })}
+                    onSubmit={createAccount}>
+                    {({values, errors}) => (
+                        
+                        <Form >
+                            <h1 id="formTitle">Create an Account</h1>
 
-                    <input id="submit-button" class="button" type="button" value="Create Account" onClick={handleSubmit}/>
-                </form>
+                            <Box marginBottom={2} marginLeft={3}>                            
+                                <Field as={TextField} className="formField"  margin="normal" label="First Name" name="firstName" />
+                                <ErrorMessage name="firstName" component="div" />
+                            </Box>
+                            <Box marginBottom={2} marginLeft={3}>                            
+                                <Field as={TextField} className="formField"  margin="normal" label="Last Name" name="lastName" />
+                                <ErrorMessage name="lastName" component="div" />
+                            </Box>
+                            <Box marginBottom={2} marginLeft={3}>                            
+                                <Field as={TextField} className="formField"  margin="normal" label="College/University" name="university" />
+                                <ErrorMessage name="university" component="div" />
+                            </Box>
+                            <Box marginBottom={2} marginLeft={3}>                            
+                                <Field as={TextField} className="formField"  margin="normal" type="email" label="Email" name="email" />
+                                <ErrorMessage name="email" component="div" />
+                            </Box>
+                            <Box marginBottom={2} marginLeft={3}>                            
+                                <Field as={TextField} className="formField"  margin="normal" label="Password" name="password" />
+                                <ErrorMessage name="password" component="div" />
+                            </Box>
+
+                            <Button variant="contained" className="submitButton" type="submit" size="large">Submit</Button>
+                            
+                            <img id="sideImage" src={SideImage} />
+                        </Form>
+                        
+                    )}
+
+                </Formik>
+                
+            
+            
             </div>
         </div>
     );    

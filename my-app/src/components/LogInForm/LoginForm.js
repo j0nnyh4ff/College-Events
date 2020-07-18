@@ -1,74 +1,98 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
+import { useHistory } from "react-router-dom";
 import '../EventForm/EventForm.css';
-import {db} from '../DatabaseContext';
-import SideImage from './images/Team.png';
+import {db, firebaseApp} from '../DatabaseContext';
+import { Button, TextField, Box } from '@material-ui/core';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { string, object } from 'yup';
 const { remoteConfig } = require("firebase");
 
+
 function LoginForm() {
+    const history = useHistory();
 
     const [state, setState] = useState({
         email: "",
         password: ""
     });
 
-    function handleChange(event) {
-        setState({...state, 
-            [event.target.name]: event.target.value});
-        event.preventDefault();
-    }
-
+    
+    //Search Bar focus animation
     function onFocus(event) {
         event.target.style.borderColor = "orange";
     }
 
+    //Search Bar blur animation
     function onBlur(event) {
         event.target.style.borderColor = "black";
     }
 
-    function handleSubmit(event) {
-        //Prevents default behavior (addition of this call allowed for user docs to be added)
-        event.preventDefault();
+    //Log in user
+    function logInUser() {
+        
 
-        //As long as all forms are filled, allows user to be created
+        //As long as all forms are filled, allows user to send login request
+        var errorCode;
+        var errorMessage; 
+
         if (state.email && state.password) {
-            db.collection('users').add(state)
-            .then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
-            });
+            console.log("Sign in function entered");
+            firebaseApp.auth().signInWithEmailAndPassword(state.email, state.password).catch(function(error) {
+                // Handle Errors here.
+                errorCode = error.code;
+                errorMessage = error.message;
+                // ...
+              });
+              if (errorCode || errorMessage) {
+                console.log(errorCode + ": " + errorMessage);
+                return;
+                }
+                console.log("Sign in function exited");
+                
+            history.push("/success");
         }
         //Alert for blank fields
-        else {
-            alert('Please fill out all fields.');
-        }
     }
 
-    return (            
-        <div className="form-container">
-            {/*&emsp adds tab space before text*/}
-            <div id="wrapper">
-                <div id="formTitle" style={{width: "100%", textAlign: "center"}}>
-                    <h1>Log In</h1>
-                    <h3>(Welcome back!)</h3>
-                </div>
-                
-                <form>
-                <span style={{margin: "40px"}}><img id="sideImage" src={SideImage} alt=""/></span>
-                    <label>Email: </label>
-                    <input type="text" name="email" value={state.email} onChange={handleChange} onClick={onFocus} onBlur={onBlur}/>
-                    <br />
-                    <label>Password: </label>
-                    <input type="password" name="password" value={state.password} onChange={handleChange} onClick={onFocus} onBlur={onBlur} />
-                    <br />
+    return ( 
+        <>           
+        <Formik initialValues={state} 
+            validationSchema={object({
+                email: string().required("Email must be a valid email").email(),
+                password: string().required()
+            })}
+            onSubmit={logInUser}>
+                {({values, errors}) => (
+                <Form>
+                    
+                    <h1 id="formTitle">Log in</h1>
+                    
+                    <Box marginBottom={2}>                            
+                        <Field as={TextField} className="formField" fullWidth margin="normal" type="email" label="Email" name="email" />
+                        <ErrorMessage name="email" component="div" />
+                    </Box>
+                    <div> 
+                        <Box marginBottom={2}>                   
+                            <Field as={TextField} className="formField" fullWidth margin="normal" type="password" label="Password" name="password" />
+                            <ErrorMessage name="password" component="div" />
+                        </Box>
+                    </div>
 
-                    <input id="submit-button" class="button" type="button" value="Log In" onClick={handleSubmit}/>
-                </form>
-            </div>
-        </div>
-    );    
+                    <Button variant="contained" className="submitButton" type="submit" size="large" onClick={() => {
+                        setState({email: values.email, password: values.password});
+                        logInUser();
+                    }}>
+                        Submit
+                    </Button>
+
+                    <pre>{JSON.stringify(errors, null, 4)}</pre>
+                    <pre>{JSON.stringify(values, null, 4)}</pre>
+                </Form>
+            )}
+        </Formik>
+        </>
+    );   
 };
 
 export default LoginForm;

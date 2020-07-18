@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {db} from '../DatabaseContext';
 import './EventForm.css';
 import SideImage from './images/team-discussion.png';
-import BackdropImage from './images/concert.jpg';
 const { remoteConfig } = require("firebase");
 
 

@@ -30,8 +30,6 @@ const { remoteConfig } = require("firebase");
               
         console.log(this.state.events);
 
-        
-
     }
     
     render() {

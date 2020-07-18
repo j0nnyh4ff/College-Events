@@ -5,6 +5,11 @@
     background-color: #6D6875;
 }
 
+#formTitle {
+    color: black;
+    font-family: Raleway;
+}
+
 #wrapper {
     position: relative;
     padding: 16px;

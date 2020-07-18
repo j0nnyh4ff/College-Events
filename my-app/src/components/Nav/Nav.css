@@ -11,10 +11,12 @@
 }
 
 #container {
-    position: relative;
+    
+    overflow: hidden;
     margin: 0px;
     padding: 0px;
-    background-color: #2B2462;
+    background-color: #FFFBFC;
+    border-bottom: 4px solid #2B2462;
     height: 64px;
     width: 100%;
 }
@@ -26,27 +28,33 @@
     width: auto;
     margin: 0px;
     padding: 0px;
+    line-height: 70px;
     align-items: center;
+    vertical-align: middle;
 }
 
-#logo {
-    margin: 0px;
-    font-size: 36px;
-    margin-top: 6px;
-    margin-left: 30%;
+#titleBanner {
+    color: #2b2462;
+    margin-right: 8px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #bell {
     float: right;
-    margin: 0px;
+    margin: auto auto;
+    margin-top: 10px;
+    margin-right: 16px;
     padding: 0px;
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
 }
 
-#searchContainer {
+#linkContainer {
     position: absolute;
-    top: 50%;
+    display: inline;
+    top: 32px;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -57,7 +65,7 @@
     line-height: 64px;
     right: 0%;
 }
-
+/*
 button {
     width: 100px;
     font-family: Open Sans;
@@ -65,9 +73,9 @@ button {
     font-weight: bold;
     padding: 0px;
     margin-right: 40px;
-    
+
     transition: font-size 0.5s ease;
-}
+}*/
 
 #login {
     padding: 8px 12px;
@@ -99,6 +107,14 @@ button {
     transition: background-color 0.5s ease;
 }
 
+#signUpButton {
+    background-color: #2b2462;
+}
+
+#loginButton {
+    color: #2b2462;
+}
+/*
 #signUp:hover {
     border-color: #FA9F42;
     background-color: #FA9F42;
@@ -106,37 +122,69 @@ button {
     text-decoration: underline;
     transition: background-color 0.5s ease;
     transition: border-color 0.5s ease;
+}*/
+
+.link {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin: 40px;
+    color: #2b2462;
+    text-decoration: none;
+    border: none;
+    transition: color 0.1s linear;
 }
 
-a {
+.link:hover {
+    color: #fa9f42;
+    
+}
+
+.modal {
+    z-index: 110;
+    position: absolute;
+    visibility: hidden;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(43, 36, 98, 0.9);
+}
+
+.modalContent {    
+    text-align: center;
+    align-items: center;
+    padding: 24px 24px;
+  background-color: #FFFBFC;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px grey;
+  margin: 8% auto;
+  width: 30%;
+}
+
+#exit {
+    position: absolute;
+    margin: 24px;
+    padding: 0px;
+    top: 0px;
+    right: 0px;
+    font-family: sans-serif;
     font-size: 18px;
     font-weight: bold;
-    font-family: Open Sans;
-    margin: 40px;
-    color: #FFFBFC;
-    text-decoration: none; 
-    border: none;
-    transition: scale 0.1s linear;
+    color: grey;
+
 }
 
-a:hover {
-    scale: 110%;
+#exit:hover {
+    cursor: pointer;
 }
 
-@keyframes shake {
-    10%, 90% {
-      transform: translate3d(-1px, 0, 0);
-    }
-    
-    20%, 80% {
-      transform: translate3d(2px, 0, 0);
-    }
-  
-    30%, 50%, 70% {
-      transform: translate3d(-4px, 0, 0);
-    }
-  
-    40%, 60% {
-      transform: translate3d(4px, 0, 0);
-    }
-  }
+.submitButton {
+    color: #2b2462;
+    background-color: #2b2462;
+}
+
+.Button {
+    color: #2b2462;
+}
+
+
