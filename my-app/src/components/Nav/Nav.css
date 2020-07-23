@@ -33,6 +33,18 @@
     vertical-align: middle;
 }
 
+#loggedInDiv {
+    position: relative;
+    display: inline-flex;
+    height: 100%;
+    width: 64px;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
 #titleBanner {
     color: #2b2462;
     margin-right: 8px;
@@ -51,12 +63,29 @@
     height: 46px;
 }
 
+#loggedInBell {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    top: 10px;
+    margin-left: 12px;
+}
+
 #linkContainer {
     position: absolute;
     display: inline;
     top: 32px;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#searchContainer {
+    position: absolute;
+    display: inline;
+    top: 32px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 40px;
 }
 
 #buttons {
@@ -113,6 +142,14 @@ button {
 
 #loginButton {
     color: #2b2462;
+}
+
+#logoutButton {
+    float: right;
+    top: 16px;
+    right: 12px;
+    background-color: white;
+    color: #2b2562;
 }
 /*
 #signUp:hover {

@@ -3,18 +3,22 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import '../EventForm/EventForm.css';
 import {db, firebaseApp} from '../DatabaseContext';
-import { Button, TextField, Box } from '@material-ui/core';
+import { Button, TextField, Box, Checkbox, FormControlLabel } from '@material-ui/core';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import { string, object } from 'yup';
 const { remoteConfig } = require("firebase");
 
 
-function LoginForm() {
+function LoginForm(props) {
+    const displayModal = () => (props.displayModalFunc());
+    const updateLogin = () => (props.updateLoginStatus());
     const history = useHistory();
+    let index = 0;
 
     const [state, setState] = useState({
         email: "",
-        password: ""
+        password: "",
+        rememberMe: false
     });
 
     
@@ -23,21 +27,24 @@ function LoginForm() {
         event.target.style.borderColor = "orange";
     }
 
+    function rememberToggle() {
+            setState({...state, rememberMe: !state.rememberMe});       
+    }
+
     //Search Bar blur animation
     function onBlur(event) {
         event.target.style.borderColor = "black";
     }
 
     //Log in user
-    function logInUser() {
-        
+    function logInUser() {       
 
         //As long as all forms are filled, allows user to send login request
         var errorCode;
         var errorMessage; 
 
         if (state.email && state.password) {
-            console.log("Sign in function entered");
+            
             firebaseApp.auth().signInWithEmailAndPassword(state.email, state.password).catch(function(error) {
                 // Handle Errors here.
                 errorCode = error.code;
@@ -45,14 +52,24 @@ function LoginForm() {
                 // ...
               });
               if (errorCode || errorMessage) {
-                console.log(errorCode + ": " + errorMessage);
+                alert(errorCode + ": " + errorMessage);
                 return;
                 }
-                console.log("Sign in function exited");
-                
-            history.push("/success");
+
+            if (state.rememberMe) {
+                localStorage.setItem('user', JSON.stringify(firebaseApp.auth().currentUser));
+                localStorage.setItem('loginStatus', true);
+            } else {
+                sessionStorage.setItem('user', JSON.stringify(firebaseApp.auth().currentUser));
+                sessionStorage.setItem('loginStatus', true);
+            }
+
+            displayModal();
+            updateLogin();
+            history.push("/dashboard");
+            
+            
         }
-        //Alert for blank fields
     }
 
     return ( 
@@ -79,15 +96,19 @@ function LoginForm() {
                         </Box>
                     </div>
 
+                    <Box>
+                        {/*Add 'Remember Me' checkbox*/}
+                        <FormControlLabel control={
+                            <Checkbox checked={state.rememberMe} name="checkedB" color="primary" onClick={rememberToggle} />}
+                        label="Remember Me" />
+                    </Box>
+
                     <Button variant="contained" className="submitButton" type="submit" size="large" onClick={() => {
                         setState({email: values.email, password: values.password});
-                        logInUser();
                     }}>
                         Submit
                     </Button>
 
-                    <pre>{JSON.stringify(errors, null, 4)}</pre>
-                    <pre>{JSON.stringify(values, null, 4)}</pre>
                 </Form>
             )}
         </Formik>

@@ -5,7 +5,7 @@ import backsplash from './images/pencils.jpg';
 
 function LandingPage() {
     return(
-        <div>
+        <div style={{margin: "0px", padding: "0px"}}>
             <div id="banner">
                 <img id="backsplash" src={backsplash} alt=""/>
                 <div id="landing-overlay">

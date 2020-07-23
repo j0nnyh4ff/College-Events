@@ -11,6 +11,8 @@
 #banner {
     overflow: auto;
     background-color: #950952;
+    padding: 0px;
+    margin: 0px;
 }
 
 #backsplash {

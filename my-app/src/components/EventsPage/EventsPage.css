@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Raleway', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+}
+
+
+
 .results-container {
     
     margin: 0px 0px;
@@ -8,10 +15,76 @@
 .results-wrapper {
     position: relative;
     padding: 16px;
-    margin: 5% 10%;
+    margin: 5% 5%;
     border-radius: 16px;
     background-color: #FFFBFC;
     box-shadow: 0px 3px 8px;
+}
+
+#createEventButton {
+    z-index: 101;
+    float: right;
+    font-size: 24px;
+    color: white;
+    right: 24px;
+    top: 12px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-radius: 40px;
+    background-color: #2b2462;
+    transition: background-color 0.1s ease;
+}
+
+#createEventButton:hover {
+    background-color: #372e79;
+    transition: background-color 0.1s ease;
+}
+
+#profileIcon {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    right: 130px;
+    top: 20px;
+   
+}
+
+#createEventModal {
+    z-index: 100;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 68px;
+    visibility: hidden;
+    background-color: #2b2462;
+}
+
+#createEventModalContent {
+    
+    background-color: #fffbfc;
+    max-width: 800px;
+    min-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin: 5% auto;
+    padding: 3vw;
+    text-align: center;
+}
+
+#formTitle {
+    color: black;
+    font-family: 'Raleway';
+}
+
+.compactField {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.compactFieldTwo {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 ul {
@@ -51,8 +124,8 @@ image-div {
 .registerButton {
     float: right;
     margin: 8px 16px;
-    background-color: #3d30a1;
-    color: white;
+    background-color: #2b2462;
+    color: #2b2462;
     border-radius: 8px;
     border: none;
     box-shadow: 0px 1px 2px black;

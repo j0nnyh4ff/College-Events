@@ -4,7 +4,8 @@ import Bell from './images/bell.png';
 import SearchBar from '../SearchBar/SearchBar';
 import LoginForm from '../LogInForm/LoginForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
-import {db, firebaseApp} from '../DatabaseContext';
+import ProfileAvi from './images/profile-avi.png';
+import {firebaseApp} from '../DatabaseContext';
 import './Nav.css';
 import { Button, TextField, Box } from '@material-ui/core';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
@@ -13,65 +14,48 @@ import {Object, String} from 'yup';
 class Nav extends React.Component {
     constructor(props) {
         super(props);
+        localStorage.setItem('loginStatus', 'false');  
+        const status = localStorage.getItem('loginStatus'); 
         //this.history; 
         this.state = {
-            
-            modalOpen: false
-        };
-
-            
-        
+            modalOpen: false,
+            loginStatus: status  
+        };      
     }
 
-    displayModal = (event) => {
-        //Prevents null getElementById compilation error
-        if (event.target) {
-            let modal = document.getElementById("modal");
-                
-            //Set Modal visibility
-            if (!this.state.modalOpen) {                
-
-                    this.setState({...this.state, modalOpen: true});
-                    modal.style.visibility = "visible"; 
-            }
-            else {
-
-                this.setState({...this.state, modalOpen: false});
-                modal.style.visibility = "hidden";
-            }       
-        }
+    updateLogin = () => {
+        this.setState({...this.state, loginStatus: localStorage.getItem('loginStatus')});
     }
 
-    //Log in user
-    logInUser = (values) => {
-        //this.history = useHistory();
+    logOutUser = () => {
+        localStorage.setItem('loginStatus', 'false');
+        this.updateLogin(); 
+        firebaseApp.auth().signOut();
+    }
 
-        //As long as all forms are filled, allows user to send login request
-        var errorCode;
-        var errorMessage;
-        
-        if (values.email && values.password) {
-
-        
-        firebaseApp.auth().signInWithEmailAndPassword(values.email, values.password).catch(function(error) {
-            // Handle Errors here.
-            errorCode = error.code;
-            errorMessage = error.message;
-            // ...
-            });
-            if (errorCode || errorMessage) {
-            console.log(errorCode);
-            console.log(errorMessage);
+    displayModal = () => {
+        let local = localStorage.getItem("loginStatus");
+        if (local === "true") {
+            this.updateLogin();
             return;
-            }
-            alert("Successful login!");
         }
-        //this.history.push("/success");
+
+        let modal = document.getElementById("modal");
+
+        //Set Modal visibility
+        if (!this.state.modalOpen) {  
+            this.setState({...this.state, modalOpen: true});
+            modal.style.visibility = "visible";
+
+        } else {
+            this.setState({...this.state, modalOpen: false});
+            modal.style.visibility = "hidden";
+        }         
     }
 
     render() {
         //If user is not logged in
-        if (true) {
+        if (localStorage.getItem("loginStatus") !== "true") {
         return(
             <div id="container">
                 <style> {/*Importing Open Sans*/}
@@ -102,28 +86,58 @@ class Nav extends React.Component {
                     </Button>                    
                     
                     <Link to="/sign-up" id="signUp">
-                        <Button id="signUpButton" name="signupButton" variant="contained" color="primary" onClick={this.displayModal}>
+                        <Button id="signUpButton" name="signupButton" variant="contained" color="primary">
                             Sign Up
-                        </Button> 
-                    </Link> 
-                    
+                        </Button>
+                    </Link>                   
                 </span>
 
+                
                 <div id="modal" className="modal">
                     <div id="modalContent" className="modalContent">
                         <span id="exit" onClick={this.displayModal}>X&emsp;</span>
-                        <LoginForm />
-                    </div>
+                        <LoginForm updateLoginStatus={this.updateLogin} displayModalFunc={this.displayModal}/>
+                    </div>    
                 </div>
+                
+                
             </div>
         );
-    }   //User is logged in
-        else {
+    } else { //User is logged in
             return(
-            <div>
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Search</a>
+                <div id="container" style={{backgroundColor: "#2b2462"}}>
+                <style> {/*Importing Open Sans*/}
+                    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+                </style> 
+
+                <div id="loggedInDiv">
+                    <Link to="/dashboard" id="Logo">
+                        
+                        <img id="loggedInBell" src={Bell} alt="Home"/>
+                       
+                        
+                    </Link>
+                </div>
+
+                <span>
+                    <div id="searchContainer">
+                        <SearchBar />
+                    </div>
+                    
+                </span>
+
+                {/*Log in and sign up buttons*/}                  
+                <span id="buttons">
+                    <Link to="/dashboard"><img id="profileIcon" src={ProfileAvi} alt="Profile Settings"/></Link>
+                    <Link to="/" id="logout">
+                        <Button id="logoutButton" name="logoutButton" variant="contained" color="primary" 
+                            onClick={this.logOutUser}>
+                            Log out
+                        </Button>
+                    </Link>                   
+                </span>
+                
+                
             </div>
         );
         }

@@ -1,9 +1,11 @@
 import React from 'react';
+import EventsPage from '../EventsPage/EventsPage';
 
 function HomePage() {
+    localStorage.setItem('loginStatus', 'true');
     return (
         <div>
-            <h1>Hello World</h1>
+            <EventsPage />
         </div>
     );
 }

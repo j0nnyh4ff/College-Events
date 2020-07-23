@@ -1,0 +1,18 @@
+.signUpModal {
+    z-index: 110;
+    position: absolute;
+    visibility: visible;
+    background-color: #2b2462;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.modalContent { 
+    position: relative;   
+    padding: 24px 24px;
+  background-color: #FFFBFC;
+  border-radius: 8px;
+  margin: 2% auto;
+  width: 60%;
+}

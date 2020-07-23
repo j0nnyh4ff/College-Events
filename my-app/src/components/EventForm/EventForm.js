@@ -2,96 +2,139 @@ import React, { useState } from 'react';
 import {db} from '../DatabaseContext';
 import './EventForm.css';
 import SideImage from './images/team-discussion.png';
+import { Button, TextField, Box } from '@material-ui/core';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { string, number, date, object } from 'yup';
 const { remoteConfig } = require("firebase");
 
 
 //Allows user to create an event with name, date, time, length (in hours), and description fields
 
-function EventForm() {
-    const d = new Date();
-    let date = d.getMonth() + "-" + d.getDay() + "-" + d.getFullYear();
+function EventForm() {    
 
     const [state, setState] = useState({
         university: "",
         eventName: "",
-        date: "MM-DD-YYYY",
+        date: "",
         location: "",
-        time: "00:00",
+        time: "",
         length: "",
-        description: "Tell others about your event..."
+        description: ""
     });
 
-    //Handles updating of input upon typing
-    function handleChange(event) {
-        setState({...state, 
-            [event.target.name]: event.target.value});
-        event.preventDefault();
+    //Sends write request to firebase to post event
+    function createEvent(values) {
+        return;
     }
 
     //Handles submission of event
-    function handleSubmit(event) {
-        const unchanged = "Tell others about your event...";
+    function handleSubmit() {
+        let errorMessage;
         //As long as all forms are filled, allows event to be created
-        if (state.university && state.eventName && state.date && state.time && 
-            state.length && state.description && state.description !== unchanged) 
-        {           
+
+        if (state.university) {
+            console.log(state);
             db.collection('universities').doc(state.university).collection('events').add(state)
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
             })
             .catch(function(error) {
-                console.error("Error adding document: ", error);
+                errorMessage = "Error adding document: " + error;
             });
+            if (errorMessage) {
+                alert(errorMessage);
+                return;
+            }
 
-            alert("Event submitted successfully!");
+            console.log("Event submitted successfully!");
+
+            //Reset state values
+            setState({university: "",
+                eventName: "",
+                date: "",
+                location: "",
+                time: "",
+                length: "",
+                description: ""}
+            );
+
         }
+        
         //Alert for blank fields
-        else {
-            alert('Please fill out all fields.');
-        }
+        
         //Prevents default behavior (addition of this call allowed for user docs to be added)
-        event.preventDefault();
+        
     }
 
-    return (            
-        <div className="form-container">
-            {/*&emsp adds tab space before text*/}
-            <div id="wrapper">
-
-                <div style={{width: "100%", textAlign: "center"}}>
-                    <h1 className="formTitle">&emsp;Schedule an Event</h1>
-                </div>
-
-                <form>
-                    <span><img id="sideImage" src={SideImage} alt=""/></span>
-                    <label>College/University: </label>
-                    <input type="text" name="university" value={state.university} onChange={handleChange} required/>
-                    <br />
-                    <label>Event Name: </label>
-                    <input type="text" name="eventName" value={state.eventName} onChange={handleChange} required/>
-                    <br />
-                    <label>Date: </label>
-                    <input type="date" name="date" value={state.date} min={date}
-                        onChange={handleChange} style={{border: "none"}}required/>
-                    <br />
-                    <label>Location: </label>
-                    <input type="text" name="location" value={state.location} onChange={handleChange} required/>
-                    <br />
-                    <label>When does your event start? </label>
-                    <input type="time" name="time" value={state.time} onChange={handleChange} required/>
-                    <br />
-                    <label>Length (Hours): </label>
-                    <input type="number" name="length" min="1" value={state.length} onChange={handleChange} required/>
-                    <br />
-                    <label>Description: </label>
-                    <textarea name="description" rows="2" columns="30" value={state.description} onChange={handleChange} required/>
-                    <br />
-
-                    <input id="submit-button" type="button" value="Submit Event" onClick={handleSubmit}/>
+    return (
+        <Formik initialValues={state}
+            validationSchema={object({
+                university: string().required("University is a required field"),
+                eventName: string().required("Event name is required"),
+                date: date().required("A date is required"),
+                location: string().required("A location is required"),
+                capacity: number().required(),
+                time: string().required("A time is required"),
+                length: number().required("A length (in hours) is required").max(24).min(1),
+                description: string().required("A description is required")
+            })}
+            onSubmit={handleSubmit}>
+            {({values, errors}) => (
+                <Form>
+                    <Box>
+                        <Field as={TextField} label="University" fullWidth name="university" />
+                        <ErrorMessage name="university" component="div" /> 
+                    </Box>
+                    <Box>
+                        <Field as={TextField} label="Event Name" fullWidth name="eventName" />
+                        <ErrorMessage name="eventName" component="div" /> 
+                    </Box>
+                    <Box>
                     
-                </form>
-            </div>
-        </div>
+                        <Field as={TextField} label="Date" name="date" margin="normal" margin="normal" className="compactField" required/>
+                                           
+
+                        <Field as={TextField} label="Time" name="time" margin="normal" className="compactField" required/>
+                        
+
+                        <Field as={TextField} label="Length" name="length" margin="normal" className="compactField" required/>
+                        
+                    </Box>
+
+                    <Box>
+                        <Field as={TextField} label="Location" name="location" className="compactFieldTwo" required/>
+                        
+
+                        <Field as={TextField} label="Event Capacity" name="capacity" className="compactFieldTwo" required/>
+                        
+                    </Box>
+                    
+                    <Box></Box>
+                    
+                    <Box>
+                        <Field as={TextField} label="Description" fullWidth name="description" /> 
+                        <ErrorMessage name="description" component="div" />
+                    </Box>
+
+                    <Button variant="contained" className="submitButton" type="submit" size="large" onClick={() => {
+                        setState({...state, 
+                        university: values.university, 
+                        eventName: values.eventName,
+                        date: values.date,
+                        location: values.location,
+                        capacity: values.capacity,
+                        time: values.time,
+                        length: values.length,
+                        description: values.description});
+                    }}>
+                        Submit
+                    </Button>
+
+                </Form>
+            )}
+
+
+        </Formik>
     );    
 };
 
