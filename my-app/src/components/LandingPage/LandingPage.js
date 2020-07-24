@@ -1,9 +1,22 @@
 import React from 'react';
 import './LandingPage.css';
 import People from './images/clip-1.png';
-import backsplash from './images/pencils.jpg';
+import backsplash from './images/pencils.jpg'; 
+import firebase from 'firebase';
 
-function LandingPage() {
+class LandingPage extends React.Component{
+
+    componentWillMount() {
+        console.log("componentWillMount called");
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                //Redirect user
+                this.props.history.push('/dashboard');
+            }
+        })
+    }
+
+    render() {
     return(
         <div style={{margin: "0px", padding: "0px"}}>
             <div id="banner">
@@ -24,6 +37,7 @@ function LandingPage() {
             </div>
         </div>
     );
+    }
 }
 
 export default LandingPage;

@@ -7,11 +7,13 @@ import EventForm from './components/EventForm/EventForm';
 import EventsPage from './components/EventsPage/EventsPage';
 import LoginForm from './components/LogInForm/LoginForm';
 import Dashboard from './components/Dashboard/Dashboard';
+import createHistory from 'history/createBrowserHistory';
 import './App.css';
 
 function App() {
+  const history = createHistory();
   return (
-    <Router>
+    <Router history={history}>
       <div className="wrapper">
         <Nav onSuccess={() => {
           this.setState({ loggedIn: true });

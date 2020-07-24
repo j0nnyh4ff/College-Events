@@ -65,7 +65,7 @@ function LoginForm(props) {
             }
 
             displayModal();
-            updateLogin();
+            //updateLogin();
             history.push("/dashboard");
             
             

@@ -10,6 +10,7 @@ import './Nav.css';
 import { Button, TextField, Box } from '@material-ui/core';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {Object, String} from 'yup';
+import firebase from 'firebase';
 
 class Nav extends React.Component {
     constructor(props) {
@@ -19,26 +20,23 @@ class Nav extends React.Component {
         //this.history; 
         this.state = {
             modalOpen: false,
-            loginStatus: status  
+            loginStatus: false  
         };      
     }
 
-    updateLogin = () => {
+   /*  updateLogin = () => {
         this.setState({...this.state, loginStatus: localStorage.getItem('loginStatus')});
-    }
+    } */
 
     logOutUser = () => {
         localStorage.setItem('loginStatus', 'false');
-        this.updateLogin(); 
+        this.setState({...this.state, loginStatus: false});
+        //this.updateLogin(); 
         firebaseApp.auth().signOut();
     }
 
     displayModal = () => {
-        let local = localStorage.getItem("loginStatus");
-        if (local === "true") {
-            this.updateLogin();
-            return;
-        }
+        
 
         let modal = document.getElementById("modal");
 
@@ -53,9 +51,25 @@ class Nav extends React.Component {
         }         
     }
 
+    componentWillMount() {
+        console.log("componentWillMount called");
+        firebaseApp.auth().onAuthStateChanged((user) => {
+            if (user) {
+            this.setState({...this.state, loggedIn: true});
+
+            } else {
+                this.setState({...this.state, loggedIn: false});
+        }
+        })
+       
+        
+        
+        console.log(this.state);
+    }
+
     render() {
         //If user is not logged in
-        if (localStorage.getItem("loginStatus") !== "true") {
+        if (!this.state.loggedIn) {
         return(
             <div id="container">
                 <style> {/*Importing Open Sans*/}
@@ -96,7 +110,7 @@ class Nav extends React.Component {
                 <div id="modal" className="modal">
                     <div id="modalContent" className="modalContent">
                         <span id="exit" onClick={this.displayModal}>X&emsp;</span>
-                        <LoginForm updateLoginStatus={this.updateLogin} displayModalFunc={this.displayModal}/>
+                        <LoginForm  displayModalFunc={this.displayModal}/>
                     </div>    
                 </div>
                 
