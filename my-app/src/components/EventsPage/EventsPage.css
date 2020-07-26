@@ -6,16 +6,16 @@
 
 
 .results-container {
-    
     margin: 0px 0px;
-    padding: 10px;
+    padding: 1px;
     background-color: #6D6875;
 }
 
 .results-wrapper {
     position: relative;
     padding: 16px;
-    margin: 5% 5%;
+    margin: 5% 2%;
+    margin-left: 15%;
     border-radius: 16px;
     background-color: #FFFBFC;
     box-shadow: 0px 3px 8px;
@@ -38,6 +38,18 @@
 #createEventButton:hover {
     background-color: #372e79;
     transition: background-color 0.1s ease;
+}
+
+#eventFilterDiv {
+    position: absolute;
+    margin: 0px 0px; 
+    padding: 16px;   
+    width: 180px;
+    max-width: 250px;
+    background-color: #fffbfc;
+    color: black;
+    box-shadow: 0px 3px 8px;
+    border-bottom-right-radius: 8px;
 }
 
 #profileIcon {

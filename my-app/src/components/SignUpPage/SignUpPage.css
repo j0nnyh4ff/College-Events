@@ -3,6 +3,7 @@
     position: absolute;
     visibility: visible;
     background-color: #2b2462;
+    background-image: linear-gradient(to bottom right, #3a2ca7, #d15d0a);
   margin: 0px;
   height: 100%;
   width: 100%;

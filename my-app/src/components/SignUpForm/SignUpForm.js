@@ -24,8 +24,8 @@ function SignUpForm() {
     function createAccount() {
         //Prevents default behavior (addition of this call allowed for user docs to be added)
         
-        var errorCode;
-        var errorMessage;
+        var errorCode = "";
+        var errorMessage = "";
         //As long as all forms are filled, allows user to be created
            
             firebaseApp.auth().createUserWithEmailAndPassword(state.email, state.password).catch(function(error) {
@@ -33,6 +33,7 @@ function SignUpForm() {
                 if (error) {
                     errorCode = error.code;
                     errorMessage = error.message;
+                    alert(errorCode + ": " + errorMessage);
                 }
                 // ...
               });
@@ -46,10 +47,12 @@ function SignUpForm() {
                 if (error) {
                     errorCode = error.code;
                     errorMessage = error.message;
+                    console.log(errorCode + ": " + errorMessage);
                 }
                 // ...
               });
               if (errorCode) {
+                console.log(errorCode + ": " + errorMessage);
                 alert(errorCode + ": " + errorMessage);
                 return;
               }

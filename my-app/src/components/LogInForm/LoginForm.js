@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 //import ReactDOM from 'react-dom';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import '../EventForm/EventForm.css';
 import {db, firebaseApp} from '../DatabaseContext';
 import { Button, TextField, Box, Checkbox, FormControlLabel } from '@material-ui/core';
@@ -65,10 +65,7 @@ function LoginForm(props) {
             }
 
             displayModal();
-            //updateLogin();
             history.push("/dashboard");
-            
-            
         }
     }
 
@@ -97,10 +94,14 @@ function LoginForm(props) {
                     </div>
 
                     <Box>
-                        {/*Add 'Remember Me' checkbox*/}
+                        {/*'Remember Me' checkbox*/}
                         <FormControlLabel control={
                             <Checkbox checked={state.rememberMe} name="checkedB" color="primary" onClick={rememberToggle} />}
                         label="Remember Me" />
+
+                        <Link to="/reset-password" onClick={() => {
+                            displayModal();
+                        }}>Forgot password?</Link>
                     </Box>
 
                     <Button variant="contained" className="submitButton" type="submit" size="large" onClick={() => {

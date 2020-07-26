@@ -15,7 +15,6 @@ import firebase from 'firebase';
 class Nav extends React.Component {
     constructor(props) {
         super(props);
-        localStorage.setItem('loginStatus', 'false');  
         const status = localStorage.getItem('loginStatus'); 
         //this.history; 
         this.state = {
@@ -35,8 +34,7 @@ class Nav extends React.Component {
         firebaseApp.auth().signOut();
     }
 
-    displayModal = () => {
-        
+    displayModal = () => {        
 
         let modal = document.getElementById("modal");
 
@@ -54,22 +52,21 @@ class Nav extends React.Component {
     componentWillMount() {
         console.log("componentWillMount called");
         firebaseApp.auth().onAuthStateChanged((user) => {
-            if (user) {
-            this.setState({...this.state, loggedIn: true});
+            if (user) { 
+            this.setState({...this.state, loginStatus: true});
 
             } else {
-                this.setState({...this.state, loggedIn: false});
+                
+                this.setState({...this.state, loginStatus: false});
         }
-        })
-       
-        
+        });   
         
         console.log(this.state);
     }
 
     render() {
         //If user is not logged in
-        if (!this.state.loggedIn) {
+        if (!this.state.loginStatus) {
         return(
             <div id="container">
                 <style> {/*Importing Open Sans*/}
@@ -87,9 +84,9 @@ class Nav extends React.Component {
 
                 <span>
                     <div id="linkContainer">
-                        <Link className="link">About</Link>
-                        <Link className="link">Developers</Link>
-                        <Link className="link">Terms & Policies</Link>
+                        <Link className="link" to="/about" >About</Link>
+                        <Link className="link" to="/developers">Developers</Link>
+                        <Link className="link" to="/terms-policies">Terms & Policies</Link>
                     </div>
                 </span>
 
