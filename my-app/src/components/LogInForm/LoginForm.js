@@ -1,111 +1,128 @@
 import React, { useState } from 'react';
 //import ReactDOM from 'react-dom';
-import { useHistory, Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import '../EventForm/EventForm.css';
 import {db, firebaseApp} from '../DatabaseContext';
 import { Button, TextField, Box, Checkbox, FormControlLabel } from '@material-ui/core';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import { string, object } from 'yup';
+import firebase from 'firebase';
 const { remoteConfig } = require("firebase");
 
 
-function LoginForm(props) {
-    const displayModal = () => (props.displayModalFunc());
-    const updateLogin = () => (props.updateLoginStatus());
-    const history = useHistory();
-    let index = 0;
+class LoginForm extends React.Component {
+    constructor(props) {
+        super(props);
 
-    const [state, setState] = useState({
-        email: "",
-        password: "",
-        rememberMe: false
-    });
-
-    
-    //Search Bar focus animation
-    function onFocus(event) {
-        event.target.style.borderColor = "orange";
+        this.state = {
+            email: "",
+            password: "",
+            rememberMe: false
+        };
     }
 
-    function rememberToggle() {
-            setState({...state, rememberMe: !state.rememberMe});       
-    }
-
-    //Search Bar blur animation
-    function onBlur(event) {
-        event.target.style.borderColor = "black";
+    rememberToggle = () => {
+        this.setState({...this.state, rememberMe: !this.state.rememberMe});      
     }
 
     //Log in user
-    function logInUser() {       
-
-        //As long as all forms are filled, allows user to send login request
+    logInUser = (values) => {   
+        //Variables to hold any errors
         var errorCode;
         var errorMessage; 
 
-        if (state.email && state.password) {
+        //No gatekeeping needed because of formik validation handling
             
-            firebaseApp.auth().signInWithEmailAndPassword(state.email, state.password).catch(function(error) {
-                // Handle Errors here.
-                errorCode = error.code;
-                errorMessage = error.message;
-                // ...
-              });
-              if (errorCode || errorMessage) {
-                alert(errorCode + ": " + errorMessage);
-                return;
-                }
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+            // Handle Errors here.
+            errorCode = error.code;
+            errorMessage = error.message;
+            });
 
-            if (state.rememberMe) {
-                localStorage.setItem('user', JSON.stringify(firebaseApp.auth().currentUser));
-                localStorage.setItem('loginStatus', true);
-            } else {
-                sessionStorage.setItem('user', JSON.stringify(firebaseApp.auth().currentUser));
-                sessionStorage.setItem('loginStatus', true);
-            }
+        //Catch and alert user to error
+        if (errorCode || errorMessage) {
+            alert(errorCode + ": " + errorMessage);
+            return;
+        }
+        
+        //Call displayModal to close log in modal and redirect to user dashboard
+        this.props.displayModal();
+        return(<Redirect to="/dashboard" />);
+        
+    }
 
-            displayModal();
-            history.push("/dashboard");
+    componentWillUnmount() {           
+        if (this.state.rememberMe) {
+            //Remember user login by setting authentication state persistence to local storage
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                .then(function() {
+                    return firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password);
+                })
+                .catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode + ": " + errorMessage);
+                });
+
+        } else {
+            //Set user to be cleared upon tab closed by setting authentication state persistence to session
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+                .then(function() {
+                    // Existing and future Auth states are now persisted in the current
+                    // session only. Closing the window would clear any existing state even
+                    // if a user forgets to sign out.
+                    // ...
+                    // New sign-in will be persisted with session persistence.
+                    return firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password);
+                })
+                .catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode + ": " + errorMessage);
+                });
         }
     }
 
+render() {
     return ( 
-        <>           
-        <Formik initialValues={state} 
+    <div style={{height: "100%", width: "100%", padding: "0px"}}>      
+        <Formik initialValues={this.state} 
             validationSchema={object({
                 email: string().required("Email must be a valid email").email(),
                 password: string().required()
             })}
-            onSubmit={logInUser}>
+            onSubmit={(values) => {
+                this.logInUser(values);
+            }}>
                 {({values, errors}) => (
                 <Form>
                     
                     <h1 id="formTitle">Log in</h1>
                     
-                    <Box marginBottom={2}>                            
+                    <Box marginBottom={3}>                            
                         <Field as={TextField} className="formField" fullWidth margin="normal" type="email" label="Email" name="email" />
                         <ErrorMessage name="email" component="div" />
                     </Box>
-                    <div> 
-                        <Box marginBottom={2}>                   
+                     
+                        <Box marginBottom={4}>                   
                             <Field as={TextField} className="formField" fullWidth margin="normal" type="password" label="Password" name="password" />
                             <ErrorMessage name="password" component="div" />
                         </Box>
-                    </div>
+                    
 
                     <Box>
                         {/*'Remember Me' checkbox*/}
                         <FormControlLabel control={
-                            <Checkbox checked={state.rememberMe} name="checkedB" color="primary" onClick={rememberToggle} />}
+                            <Checkbox checked={this.state.rememberMe} name="checkedB" color="primary" onClick={this.rememberToggle} />}
                         label="Remember Me" />
 
-                        <Link to="/reset-password" onClick={() => {
-                            displayModal();
-                        }}>Forgot password?</Link>
+                        <Link to="/reset-password" onClick={this.props.displayModalFunc}>Forgot password?</Link>
                     </Box>
 
                     <Button variant="contained" className="submitButton" type="submit" size="large" onClick={() => {
-                        setState({email: values.email, password: values.password});
+                        this.setState({email: values.email, password: values.password});
                     }}>
                         Submit
                     </Button>
@@ -113,8 +130,10 @@ function LoginForm(props) {
                 </Form>
             )}
         </Formik>
-        </>
-    );   
-};
+        </div>
+        
+    ); 
+    }  
+}
 
 export default LoginForm;

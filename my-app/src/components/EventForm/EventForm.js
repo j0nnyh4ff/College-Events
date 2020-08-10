@@ -21,7 +21,7 @@ class EventForm extends React.Component {
             eventName: "",
             date: "",
             location: "",
-            capacity: 0,
+            capacity: null,
             attendees: 0,
             time: "",
             length: "",
@@ -34,7 +34,7 @@ class EventForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 }
 
-componentWillMount() {
+/* componentWillMount() {
     firebaseApp.auth().onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in.
@@ -57,7 +57,7 @@ componentWillMount() {
         }
 });
 
-}    
+}  */   
 
     filterToggle = (event) => {
         let filterName = event.target.name;
@@ -143,8 +143,8 @@ componentWillMount() {
                 {({values, errors}) => (
                     <Form>
                         <Box>
-                            <Field as={TextField} label="Event Name" fullWidth name="eventName" />
-                            <ErrorMessage name="eventName" component="div" /> 
+                            <Field as={TextField} label="Event Name" fullWidth name="eventName" required/>
+                            {/*<ErrorMessage name="eventName" component="div" />*/}
                         </Box>
                         <Box>
                             <FormControlLabel control={
@@ -160,7 +160,7 @@ componentWillMount() {
                         <Box>
                         
                             <Field as={TextField} label="Date" name="date" margin="normal" margin="normal" className="compactField" required />
-                                            
+                            <ErrorMessage name="date" component="div" />
 
                             <Field as={TextField} label="Time" name="time" margin="normal" className="compactField" required/>
                             
@@ -197,7 +197,7 @@ componentWillMount() {
                                 Submit
                             </Button>
 
-                            <Button style={{marginLeft: "16px"}} variant="contained" size="large" type='reset'>Reset</Button>
+                            <Button style={{marginLeft: "16px", color: "red"}} variant="contained" size="large" type='reset'>Reset</Button>
 
                         </Box>
 

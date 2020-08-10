@@ -8,61 +8,191 @@
     src: url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 }
 
-#banner {
-    overflow: auto;
-    background-color: #950952;
-    padding: 0px;
-    margin: 0px;
+u {
+    font-weight: bold;
+    color: #f1b505;
 }
 
-#backsplash {
+.mobile-modal {
+    display: inline-block;
+    z-index: 110;
+    position: absolute;
+    visibility: hidden;
+  margin: 0px;
+  left: 0px;
+  top: 20%;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  
+  overflow: hidden;
+}
+
+.mobile-modal-content {    
+    text-align: center;
+    padding: 24px;
+  background-color: #FFFBFC;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px grey;
+  /*height: 80vh;*/
+  bottom: 0px;
+  
+}
+
+#exit {
+    position: absolute;
+    margin: 24px;
+    padding: 0px;
+    top: 0px;
+    right: 0px;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: grey;
+}
+
+/*Mobile view (screen < 1000px wide)*/
+#banner {
+    background-color: rgba(2, 14, 76, 0.1);
+    height: 100vh;
+    width: 100vw;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+#mobile-message-overlay {
+    margin: 0px;
+    width: 100%;
+    height: fit-content;
+    display: inline-block;
+    position: absolute;
+    padding: 0px;
+    text-align: center;
+    top: 5vh;
+    left: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    
+    background-color: rgba(2, 14, 76, 0.1);
+    color: white;
+    font-family: 'Open Sans', sans-serif;    
+    line-height: 32px;
+    
+}
+
+#mobile-backsplash {
     height: 100%;
     width: 100%;
 }
 
-#landing-overlay {
-    display: inline;
-    position: absolute;
-    padding: 36px;
-    right: 12%;
-    top: 20%;
-    background-color: #FFFBFC;
-    border-radius: 12px;
-    box-shadow: 0px 4px 8px grey;
-    
+#schoolhouseIcon {    
+    height: 50px;
+    width: 50px;
+    margin: 0px;
 }
 
-#landingTag {
-    color: black;
-    font-family: Raleway;
-}
-
-#humaaans {
-    width: 600px;
-    height: 400px;
-    float: right;
-    
-}
-
-h1 {
-    font-family: Abril Fatface;
-    color: #FFFBFC;
+#title-tag {    
+    font-family: 'Sansita', sans-serif;
     font-size: 48px;
-    letter-spacing: 5px;
-}
-
-h2, h3 {
     color: white;
-    font-family: Raleway;
 }
 
-h3 {
-    font-weight: normal;
+#buttonDiv {
+    text-align: center;
+    align-content: center;
+    vertical-align: middle;
 }
 
-p {
-    font-family: Raleway;
-    color: black;
-    font-size: 22px;
-    line-height: 40px; 
+#logInDiv {
+    line-height: 5vh;
+    margin: 32px auto;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 16px;
+    border: 3px solid white;
+    color: white;
+    width: 60vw;
+    height: 5vh; 
+    padding-bottom: 0px;
+    font-weight: bold;
+}
+
+#signUpDiv {
+    position: relative;
+    margin: 32px auto;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 16px;
+    border: 3px solid #f1b505;
+    width: 60vw;
+    height: 5vh; 
+    padding-bottom: 0px;
+    font-weight: bold;
+}
+
+#signUpLink {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-decoration: none;
+    color: #f1b505;
+}
+
+#humaaans {    
+    display: inline-block;
+    height: 30vh;
+    width: 100vw;
+    margin: 16px auto;
+}
+
+/*Hide desktop elements*/
+#desktop-backsplash {
+    display: none;
+}
+
+#desktop-message-overlay {
+    display: none;
+}
+
+/*Desktop view */
+@media only screen and (min-width: 900px) {
+
+#banner { 
+    padding: 0px;
+    margin: 0px;
+    margin-top: -4px;
+    left: 0px;
+    height: 100vh;
+    width: 100%;
+    border-top: 2px solid #fffbfc;
+}
+
+#desktop-backsplash {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+#desktop-message-overlay {
+    display: inline-block;
+    position: absolute;
+    margin: 10% auto;
+    right: 5%;
+    width: 30%;
+    line-height: 48px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+}
+
+/*Hide mobile elements*/
+#mobile-backsplash {
+    display: none;
+}
+
+#mobile-message-overlay {
+    display: none;
+}
+
+
 }

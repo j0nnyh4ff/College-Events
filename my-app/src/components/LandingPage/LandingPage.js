@@ -1,42 +1,84 @@
 import React from 'react';
+import LoginForm from '../LogInForm/LoginForm';
 import './LandingPage.css';
 import People from './images/clip-1.png';
-import backsplash from './images/pencils.jpg'; 
+import desktopBacksplash from './images/studentsPage.png';
+import mobileBacksplash from './images/graduation.png'; 
 import firebase from 'firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSchool } from '@fortawesome/free-solid-svg-icons';
+import { Redirect, Link } from 'react-router-dom';
 
 class LandingPage extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalOpen: false
+        };
+    }
 
-    componentWillMount() {
-        console.log("componentWillMount called");
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                //Redirect user
-                this.props.history.push('/dashboard');
-            }
-        })
+    displayModal = (event) => {        
+        let modal = document.getElementById("mobile-modal");
+
+        if (this.state.modalOpen) {
+            this.setState({modalOpen: false});
+            modal.style.visibility = "hidden";
+            modal.style.height = "0px";
+        } else {
+            this.setState({modalOpen: true});
+            modal.style.visibility = "visible";
+            modal.style.height = "80vh";
+        }     
     }
 
     render() {
-    return(
-        <div style={{margin: "0px", padding: "0px"}}>
-            <div id="banner">
-                <img id="backsplash" src={backsplash} alt=""/>
-                <div id="landing-overlay">
-                    <h1 id="landingTag">
-                        Share why you love <br/>
-                        <u>your school.</u>
-                    </h1>
+        //Redirects user if login status is true (passed from App.js)
+        if(this.props.loggedIn) {
+            return (<Redirect to="/dashboard"/>);
+        }
 
-                    <p>
-                        Join others in sharing what events are happening on campus. <br />
-                        Find events on campuses close to you. <br />
-                    </p>
-                    <img id="humaaans" src={People} alt=""/>
+        return(
+                <div id="banner">
+                    <img id="desktop-backsplash" src={desktopBacksplash} />
+                    <img id="mobile-backsplash" src={mobileBacksplash} />
+                    
+
+                    <div id="desktop-message-overlay">                        
+                        <h1 id="title-tag">Share why you love <u>your school.</u></h1> <br/>                        
+                       <div style={{padding: "24px"}}>
+                            Join others in sharing what events are <br/> happening on <u>your campus</u> <br />
+                            and find events on campuses <u>close to you.</u> <br />
+                        </div>
+                    </div>
+                    
+                    
+                    <div id="mobile-message-overlay">
+                        <FontAwesomeIcon id="schoolhouseIcon" icon={faSchool} />
+                        <h1 id="title-tag">Schoolhouse</h1> 
+
+                            Share why you love <u>your school.</u> <br />                               
+                        
+                            Join others in sharing what events are <br/> happening on <u>your campus</u> <br />
+                            and find events on campuses <u>close to you.</u> <br />
+                        <div id="buttonDiv"></div>
+                            <div id="logInDiv" onClick={this.displayModal}>Log In</div>
+                            <div id="signUpDiv"><center><Link to="/sign-up" id="signUpLink">Sign Up</Link></center></div>
+                        
+                        <img id="humaaans" src={People} alt=""/>
+                    </div>
+
+                    <div id="mobile-modal" className="mobile-modal">
+                        <div id="modalContent" className="mobile-modal-content">
+                            <span id="exit" onClick={this.displayModal}>X&emsp;</span>
+                            <LoginForm  displayModalFunc={this.displayModal}/>
+                        </div>    
+                    </div>
+
+                    
 
                 </div>
-            </div>
-        </div>
-    );
+            
+        );
     }
 }
 

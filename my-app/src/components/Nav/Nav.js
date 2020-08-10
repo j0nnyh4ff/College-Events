@@ -7,6 +7,8 @@ import SignUpForm from '../SignUpForm/SignUpForm';
 import ProfileAvi from './images/profile-avi.png';
 import {firebaseApp} from '../DatabaseContext';
 import './Nav.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSchool } from '@fortawesome/free-solid-svg-icons';
 import { Button, TextField, Box } from '@material-ui/core';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {Object, String} from 'yup';
@@ -18,20 +20,15 @@ class Nav extends React.Component {
         const status = localStorage.getItem('loginStatus'); 
         //this.history; 
         this.state = {
-            modalOpen: false,
-            loginStatus: false  
+            modalOpen: false
         };      
     }
 
-   /*  updateLogin = () => {
-        this.setState({...this.state, loginStatus: localStorage.getItem('loginStatus')});
-    } */
-
+    //Log out user
     logOutUser = () => {
         localStorage.setItem('loginStatus', 'false');
-        this.setState({...this.state, loginStatus: false});
-        //this.updateLogin(); 
-        firebaseApp.auth().signOut();
+        localStorage.setItem('user', null);
+        firebaseApp.auth().signOut();    
     }
 
     displayModal = () => {        
@@ -49,32 +46,17 @@ class Nav extends React.Component {
         }         
     }
 
-    componentWillMount() {
-        console.log("componentWillMount called");
-        firebaseApp.auth().onAuthStateChanged((user) => {
-            if (user) { 
-            this.setState({...this.state, loginStatus: true});
-
-            } else {
-                
-                this.setState({...this.state, loginStatus: false});
-        }
-        });   
-        
-        console.log(this.state);
-    }
-
     render() {
         //If user is not logged in
-        if (!this.state.loginStatus) {
+        if (!this.props.loggedIn) {
         return(
-            <div id="container">
+            <div id="nav">
                 <style> {/*Importing Open Sans*/}
                     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
                 </style> 
 
                 <div id="logoDiv">
-                    <Link to="/" id="Logo">
+                    <Link to="/" id="Logo" id="titleBanner">
                         
                         <img id="bell" src={Bell} alt="Home"/>
                         <span><h3 id="titleBanner">Schoolhouse</h3></span>
@@ -116,15 +98,15 @@ class Nav extends React.Component {
         );
     } else { //User is logged in
             return(
-                <div id="container" style={{backgroundColor: "#2b2462"}}>
+                <div id="nav" style={{backgroundColor: "#0624c3"}}>
                 <style> {/*Importing Open Sans*/}
                     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
                 </style> 
 
                 <div id="loggedInDiv">
                     <Link to="/dashboard" id="Logo">
-                        
-                        <img id="loggedInBell" src={Bell} alt="Home"/>
+                        <FontAwesomeIcon id="loggedInBell" icon={faSchool} />
+                        {/*<img id="loggedInBell" src={Bell} alt="Home"/>*/}
                        
                         
                     </Link>

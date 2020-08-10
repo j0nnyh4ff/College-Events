@@ -12,8 +12,61 @@ import TermsPolicies from './components/TermsPolicies/TermsPolicies';
 import createHistory from 'history/createBrowserHistory';
 import ResetPasswordPage from './components/ResetPasswordPage/ResetPasswordPage';
 import './App.css';
+import { firebaseApp } from './components/DatabaseContext';
 
-function App() {
+class App extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        loggedIn: false,
+        isLoading: true
+      };      
+  }
+    componentWillMount() {
+      firebaseApp.auth().onAuthStateChanged((user) => {
+          if (user) {
+              this.setState({loggedIn: true});
+          } else {
+              this.setState({loggedIn: false});
+          }
+          this.setState({isLoading: false });
+      })
+  }
+    render() {
+      const history = createHistory();
+  
+      if(this.state.isLoading) {
+        return (<div style={{backgroundColor: "coral"}}/>);
+      }
+  
+      return (
+      <Router history={history}>
+        <div className="wrapper" style={{padding: "0px"}}>
+          <Nav loggedIn={this.state.loggedIn} />
+
+          <Route path="/" exact >
+            <LandingPage loggedIn={this.state.loggedIn} />
+          </Route>
+          <Route path="/dashboard" exact>
+            <Dashboard loggedIn={this.state.loggedIn} />
+          </Route>
+          <Route path="/events-page" exact>
+            <EventsPage loggedIn={this.state.loggedIn} />
+          </Route>
+
+          <Route path="/reset-password" exact component={ResetPasswordPage} />
+          <Route path="/login" exact component={LoginForm} /> 
+          <Route path="/sign-up" exact component={SignUpPage} />         
+          <Route path="/about" exact component={About} />
+          <Route path="/developers" exact component={Developers} />
+          <Route path="/terms-policies" exact component={TermsPolicies} />
+        </div>
+      </Router>
+    );
+  }
+  }
+
+/* function App() {
   const history = createHistory();
   return (
     <Router history={history}>
@@ -34,6 +87,8 @@ function App() {
       </div>
     </Router>
   );
-}
+} */
+
+
 
 export default App;

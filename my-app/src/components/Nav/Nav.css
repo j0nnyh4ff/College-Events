@@ -10,15 +10,30 @@
     src: url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 }
 
-#container {
-    
+/*Mobile view*/
+#nav {
+    display: none;
+}
+
+@media only screen and (min-width: 900px) {
+#nav {
+    display: inline-block;
     overflow: hidden;
     margin: 0px;
     padding: 0px;
-    background-color: #FFFBFC;
-    border-bottom: 4px solid #2B2462;
+    background-color: #fffbfc;
     height: 64px;
     width: 100%;
+    border: none;
+}
+
+#desktop-message-delivery {
+    position: absolute;
+    display: block;
+}
+
+#mobile-message-overlay {
+    display: none;
 }
 
 #logoDiv {
@@ -46,11 +61,12 @@
 }
 
 #titleBanner {
-    color: #2b2462;
+    color: #0624c3;
     margin-right: 8px;
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
+    font-family: "Sansita", sans-serif;
 }
 
 #bell {
@@ -68,7 +84,8 @@
     width: 46px;
     height: 46px;
     top: 10px;
-    margin-left: 12px;
+    margin-left: 24px;
+    color: white;
 }
 
 #linkContainer {
@@ -94,17 +111,6 @@
     line-height: 64px;
     right: 0%;
 }
-/*
-button {
-    width: 100px;
-    font-family: Open Sans;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0px;
-    margin-right: 40px;
-
-    transition: font-size 0.5s ease;
-}*/
 
 #login {
     padding: 8px 12px;
@@ -117,30 +123,14 @@ button {
     transition: border-color 0.5s ease;
 }
 
-#login:hover {
-    background-color: #2B2462;
-    border: 3px solid #FA9F42;
-    color: #FA9F42;
-    text-decoration: underline;
-    transition: background-color 0.5s ease;
-}
-
-#signUp {
-    padding: 8px 12px;
-    margin: 16px;
-    background-color: #FFFBFC;
-    border-radius: 8px;
-    color: #2B4162;
-    border: 3px solid #FFFBFC;
-
-    transition: background-color 0.5s ease;
-}
-
 #signUpButton {
-    background-color: #2b2462;
+    margin: 16px;
+    background-color: #0624c3;
+    
 }
 
 #loginButton {
+    margin: 16px;
     color: #2b2462;
 }
 
@@ -151,22 +141,13 @@ button {
     background-color: white;
     color: #2b2562;
 }
-/*
-#signUp:hover {
-    border-color: #FA9F42;
-    background-color: #FA9F42;
-    color: #2B2462;
-    text-decoration: underline;
-    transition: background-color 0.5s ease;
-    transition: border-color 0.5s ease;
-}*/
 
 .link {
     font-size: 16px;
     font-weight: bold;
     font-family: sans-serif;
     margin: 40px;
-    color: #2b2462;
+    color: #0624c3;
     text-decoration: none;
     border: none;
     transition: color 0.1s linear;
@@ -178,24 +159,25 @@ button {
 }
 
 .modal {
-    z-index: 110;
-    position: absolute;
-    visibility: hidden;
+  z-index: 110;
+  display: inline-block;
+  position: absolute;
+  visibility: hidden;
   margin: 0px;
+  left: 0px;
   height: 100%;
   width: 100%;
   background-color: rgba(43, 36, 98, 0.9);
 }
 
 .modalContent {    
-    text-align: center;
-    align-items: center;
-    padding: 24px 24px;
+  text-align: center;
   background-color: #FFFBFC;
   border-radius: 8px;
   box-shadow: 0px 4px 8px grey;
-  margin: 8% auto;
-  width: 30%;
+
+  height: 500px;
+  width: 300px;
 }
 
 #exit {
@@ -215,13 +197,10 @@ button {
     cursor: pointer;
 }
 
-.submitButton {
-    color: #2b2462;
-    background-color: #2b2462;
-}
-
 .Button {
     color: #2b2462;
+}
+
 }
 
 

@@ -73,15 +73,15 @@ function SignUpForm() {
 
               localStorage.setItem('loginStatus', 'true');
               console.log("create user exited");
-              //Nav.forceUpdate(setState({state, loginStatus: localStorage.getItem('loginStatus')}));
+              
               history.push("/dashboard");
     }
 
     return (  
-        <span>       
+        <div style={{height: "100%", width: "100%", padding: "0px"}}>       
             <Formik initialValues={state}
                 validationSchema={object({
-                    firstName: string().required("First name is a required field"),
+                    firstName: string().required(),
                     lastName: string().required("Last name is a required field"),
                     university: string().required("College/University is a required field"),
                     email: string().required("Email is a required field").email(),
@@ -93,26 +93,26 @@ function SignUpForm() {
                     <Form style={{textAlign: "left", textAlign: "center"}}>
                         
                         <Box marginBottom={1} marginLeft={2}>                            
-                            <Field as={TextField} className="formField"  fullWidth margin="normal" label="First Name" name="firstName" />
-                            <ErrorMessage name="firstName" component="div" />
+                            <Field as={TextField} className="formField"  fullWidth margin="normal" label="First Name" name="firstName" required/>
+                            {/*<ErrorMessage name="firstName" component="div" />*/}
                         </Box>
                         <Box marginBottom={1} marginLeft={2}>                            
-                            <Field as={TextField} className="formField"  fullWidth margin="normal" label="Last Name" name="lastName" />
-                            <ErrorMessage name="lastName" component="div" />
+                            <Field as={TextField} className="formField"  fullWidth margin="normal" label="Last Name" name="lastName" required/>
+                            {/*<ErrorMessage name="lastName" component="div" />*/}
                         </Box>
                         <Box marginBottom={1} marginLeft={2}>                            
-                            <Field as={TextField} className="formField" fullWidth margin="normal" label="College/University" name="university" />
-                            <ErrorMessage name="university" component="div" />
+                            <Field as={TextField} className="formField" fullWidth margin="normal" label="College/University" name="university" required/>
+                            {/*<ErrorMessage name="university" component="div" />*/}
                         </Box>
                         <Box marginBottom={1} marginLeft={2}>                            
-                            <Field as={TextField} className="formField"  fullWidth margin="normal" type="email" label="Email" name="email" />
-                            <ErrorMessage name="email" component="div" />
+                            <Field as={TextField} className="formField"  fullWidth margin="normal" type="email" label="Email" name="email" required/>
+                            {/*<ErrorMessage name="email" component="div" />*/}
                         </Box>
                         <Box marginBottom={2} marginLeft={2}>                            
-                            <Field as={TextField} type="password" className="formField" fullWidth margin="normal" label="Password" name="password" />
-                            <ErrorMessage name="password" component="div" />
+                            <Field as={TextField} type="password" className="formField" fullWidth margin="normal" label="Password" name="password" required/>
+                            {/*<ErrorMessage name="password" component="div" />*/}
                         </Box>
-                        <Box>
+                        <Box marginBottom={2}>
                             <Button variant="contained" className="submitButton" type="submit" size="large" onClick={() => {
                                 setState({ 
                                 firstName: values.firstName, 
@@ -130,7 +130,7 @@ function SignUpForm() {
                 )}
 
             </Formik>
-            </span>
+        </div>
     );    
 };
 
