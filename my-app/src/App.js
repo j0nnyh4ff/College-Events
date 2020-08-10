@@ -66,29 +66,6 @@ class App extends React.Component {
   }
   }
 
-/* function App() {
-  const history = createHistory();
-  return (
-    <Router history={history}>
-      <div className="wrapper">
-        <Nav onSuccess={() => {
-          this.setState({ loggedIn: true });
-          }} 
-        />
-        <Route path="/sign-up" exact component={SignUpPage} />
-        <Route path="/" exact component={LandingPage} />
-        <Route path="/events-page" exact component={EventsPage} />
-        <Route path="/login" exact component={LoginForm} />
-        <Route path="/dashboard" exact component={Dashboard} />
-        <Route path="/reset-password" exact component={ResetPasswordPage} />
-        <Route path="/about" exact component={About} />
-        <Route path="/developers" exact component={Developers} />
-        <Route path="/terms-policies" exact component={TermsPolicies} />
-      </div>
-    </Router>
-  );
-} */
-
 
 
 export default App;
